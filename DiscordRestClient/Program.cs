@@ -25,10 +25,13 @@ var commands = app.Services.GetRequiredService<InteractionService>();
 await commands.AddModulesAsync(Assembly.GetExecutingAssembly(), app.Services);
 await commands.RegisterCommandsToGuildAsync(app.Configuration.GetValue<ulong>("test_guild"));
 
+// ***********************************************
+// After setting up everything correctly if you are still unable to validate your interactions enpoint and you are using a proxy, try disabling UseHttpsRedirection()
+// ***********************************************
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseInteractionService("/interactions", builder.Configuration["pbk"]);
+app.MapInteractionService("/interactions", builder.Configuration["pbk"]);
 
 app.Run();
